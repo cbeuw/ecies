@@ -306,7 +306,7 @@ func TestEncryptDecrypt(t *testing.T) {
 		t.FailNow()
 	}
 
-	pt, err := prv2.Decrypt(rand.Reader, ct, nil, nil)
+	pt, err := prv2.Decrypt(ct, nil, nil)
 	if err != nil {
 		fmt.Println(err.Error())
 		t.FailNow()
@@ -317,7 +317,7 @@ func TestEncryptDecrypt(t *testing.T) {
 		t.FailNow()
 	}
 
-	_, err = prv1.Decrypt(rand.Reader, ct, nil, nil)
+	_, err = prv1.Decrypt(ct, nil, nil)
 	if err == nil {
 		fmt.Println("ecies: encryption should not have succeeded")
 		t.FailNow()
@@ -352,7 +352,7 @@ func TestMarshalEncryption(t *testing.T) {
 		t.FailNow()
 	}
 
-	pt, err := prv2.Decrypt(rand.Reader, ct, nil, nil)
+	pt, err := prv2.Decrypt(ct, nil, nil)
 	if err != nil {
 		fmt.Println(err.Error())
 		t.FailNow()
@@ -363,7 +363,7 @@ func TestMarshalEncryption(t *testing.T) {
 		t.FailNow()
 	}
 
-	_, err = prv1.Decrypt(rand.Reader, ct, nil, nil)
+	_, err = prv1.Decrypt(ct, nil, nil)
 	if err != nil {
 		fmt.Println(err.Error())
 		t.FailNow()
@@ -439,7 +439,7 @@ func testParamSelection(t *testing.T, c testCase) {
 		t.FailNow()
 	}
 
-	pt, err := prv2.Decrypt(rand.Reader, ct, nil, nil)
+	pt, err := prv2.Decrypt(ct, nil, nil)
 	if err != nil {
 		fmt.Printf("%s (%s)\n", err.Error(), c.Name)
 		t.FailNow()
@@ -451,7 +451,7 @@ func testParamSelection(t *testing.T, c testCase) {
 		t.FailNow()
 	}
 
-	_, err = prv1.Decrypt(rand.Reader, ct, nil, nil)
+	_, err = prv1.Decrypt(ct, nil, nil)
 	if err == nil {
 		fmt.Printf("ecies: encryption should not have succeeded (%s)\n",
 			c.Name)
@@ -480,7 +480,7 @@ func TestBasicKeyValidation(t *testing.T) {
 
 	for _, b := range badBytes {
 		ct[0] = b
-		_, err := prv.Decrypt(rand.Reader, ct, nil, nil)
+		_, err := prv.Decrypt(ct, nil, nil)
 		if err != ErrInvalidPublicKey {
 			fmt.Println("ecies: validated an invalid key")
 			t.FailNow()
